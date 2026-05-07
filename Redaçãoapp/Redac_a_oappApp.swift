@@ -1,17 +1,18 @@
-//
-//  Redac_a_oappApp.swift
-//  Redaçãoapp
-//
-//  Created by Raul Vila nova costa on 06/05/26.
-//
-
 import SwiftUI
 
 @main
-struct Redac_a_oappApp: App {
+struct RedacaoAppApp: App {
+    @StateObject private var authManager = AuthManager()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if authManager.isAuthenticated {
+                ContentView()
+                    .environmentObject(authManager)
+            } else {
+                LoginView()
+                    .environmentObject(authManager)
+            }
         }
     }
 }
